@@ -26,6 +26,7 @@ jobs:
           pwd
           cd misc/loadtesting/
           ls
+          k6 run simple_test.js
 
           
       

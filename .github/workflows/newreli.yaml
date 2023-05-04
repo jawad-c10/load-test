@@ -28,7 +28,7 @@ jobs:
         env:
           NEW_RELIC_LICENSE_KEY: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
         run: |
-          docker run -i -t --rm \
+          docker run --tty --interactive  --rm \
             -h $(hostname) \
             -e NR_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT }} \
             -e NR_API_KEY=${{ secrets.NEW_RELIC_LICENSE_KEY }} \

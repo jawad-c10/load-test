@@ -5,8 +5,8 @@ export const options = {
     duration: '1m',
     vus: 20,
     tags: {
-    k6_cluster: 'mesh_dev',
-    k6_service: 'proxy'
+    k6_cluster: 'encore_uat',
+    k6_service: 'ccon'
   },
     thresholds: {
       http_req_failed: ['rate<0.01'], // http errors should be less than 1%

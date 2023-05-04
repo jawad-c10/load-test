@@ -22,17 +22,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-     
-      - name: Install Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
+
       
       - name: Send metrics to New Relic
         env:
           NEW_RELIC_LICENSE_KEY: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
         run: |
-          docker run -it --rm \
+          docker run -i -t --rm \
             -h $(hostname) \
             -e NR_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT }} \
             -e NR_API_KEY=${{ secrets.NEW_RELIC_LICENSE_KEY }} \

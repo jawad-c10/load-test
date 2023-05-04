@@ -1,0 +1,27 @@
+name: Load Test New Relic 
+
+on:
+  workflow_dispatch:
+    inputs:
+      msvc:
+        description: 'service to test'
+        required: true
+        default: 'core'
+jobs:
+  k6_load_test:
+    name: k6 Load Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      
+      - name: Install k6
+        run: |
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+          echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
+          sudo apt-get update
+          sudo apt-get install -y k6
+          ls
+          pwd
+          
+      

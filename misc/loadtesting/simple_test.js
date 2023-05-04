@@ -4,6 +4,10 @@ import { sleep } from 'k6';
 export const options = {
     duration: '10s',
     vus: 1,
+    tags: {
+    k6_cluster: 'mesh_dev',
+    k6_service: 'proxy'
+  },
     thresholds: {
       http_req_failed: ['rate<0.01'], // http errors should be less than 1%
       http_req_duration: ['p(95)<500'], // 95 percent of response times must be below 500ms

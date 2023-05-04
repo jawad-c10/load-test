@@ -2,8 +2,8 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export const options = {
-    duration: '10s',
-    vus: 1,
+    duration: '1m',
+    vus: 20,
     tags: {
     k6_cluster: 'mesh_dev',
     k6_service: 'proxy'

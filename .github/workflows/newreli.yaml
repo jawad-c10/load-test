@@ -7,6 +7,14 @@ on:
         description: 'service to test'
         required: true
         default: 'core'
+env:
+  NEW_RELIC_LICENSE_KEY: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
+  NEW_RELIC_ACCOUNT: ${{ secrets.NEW_RELIC_ACCOUNT }}
+  NEW_RELIC_APP_NAME: my_k6_test
+  STATSD_HOST: localhost
+  STATSD_PORT: 8125
+  K6_SCRIPT: ./script.js
+  
 jobs:
   k6_load_test:
     name: k6 Load Test
@@ -15,6 +23,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       
+      - name: Send metrics to New Relic
+        env:
+          NEW_RELIC_LICENSE_KEY: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
+        run: |
+          docker run -it --rm \
+            -h $(hostname) \
+            -e NR_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT }} \
+            -e NR_API_KEY=${{ secrets.NEW_RELIC_LICENSE_KEY }} \
+            -p 8125:8125/udp \
+            newrelic/nri-statsd:latest 
+            
       - name: Install k6
         run: |
           sudo gpg -k
@@ -26,7 +45,7 @@ jobs:
           pwd
           cd misc/loadtesting/
           ls
-          k6 run simple_test.js
+          K6_STATSD_ENABLE_TAGS=true k6 run --out statsd simple_test.js
 
           
       

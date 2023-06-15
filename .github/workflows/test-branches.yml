@@ -2,7 +2,7 @@ name: Load Test
 
 on:
  push:
-    branches: [ "develop", [dm][ea][vi]* ]
+    branches: [ "main", [dm][ea][vi]* ]
 pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "develop" ]

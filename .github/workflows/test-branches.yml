@@ -2,8 +2,11 @@ name: Load Test
 
 on:
  push:
-    branches: [ "main", [dm][ea][vi]* ]
-pull_request:
+    branches:
+       - develop
+       - main
+       - 'feature/*'
+ pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "develop" ]
 jobs:
